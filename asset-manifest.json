@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/vocahealth/static/js/main.3dbf6595.js",
+    "index.html": "/vocahealth/index.html",
+    "main.3dbf6595.js.map": "/vocahealth/static/js/main.3dbf6595.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.3dbf6595.js"
+  ]
+}
