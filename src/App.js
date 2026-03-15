@@ -199,7 +199,7 @@ const LoginPage = ({ onBack }) => {
         <div className="login-card">
           <div className="login-card__logo">
             <div className="navbar__logo-icon"><ToothIcon /></div>
-            <span>Oralis</span>
+            <span>Orenta</span>
           </div>
 
           <div className="login-card__tabs">
@@ -216,7 +216,7 @@ const LoginPage = ({ onBack }) => {
           {tab === 'login' ? (
             <form className="login-form" onSubmit={e => e.preventDefault()}>
               <h2 className="login-form__title">Welcome back</h2>
-              <p className="login-form__sub">Sign in to your Oralis dashboard</p>
+              <p className="login-form__sub">Sign in to your Orenta dashboard</p>
 
               <div className="form-group">
                 <label className="form-label">Email address</label>
@@ -348,8 +348,158 @@ const LoginPage = ({ onBack }) => {
   );
 };
 
+// --- Demo Transcript Data ---
+const DEMO_TRANSCRIPT = [
+  { role: 'ai', speaker: 'Aria · Orenta AI', text: "Thank you for calling Bright Smile Dental. This is Aria with Orenta. How can I help you today?", time: '0:02' },
+  { role: 'patient', speaker: 'Emma Rodriguez', text: "Hi, I need to schedule a teeth cleaning. Do you have anything available next week?", time: '0:07' },
+  { role: 'ai', speaker: 'Aria · Orenta AI', text: "Absolutely! Could I get your name to pull up your account?", time: '0:11' },
+  { role: 'patient', speaker: 'Emma Rodriguez', text: "Sure, it's Emma Rodriguez.", time: '0:15' },
+  { role: 'ai', speaker: 'Aria · Orenta AI', text: "Hi Emma! I can see you're due for a routine cleaning — perfect timing. We have Tuesday March 18th at 10 AM or Thursday March 20th at 2:30 PM next week. Which works better?", time: '0:20' },
+  { role: 'patient', speaker: 'Emma Rodriguez', text: "Thursday at 2:30 would be perfect.", time: '0:30' },
+  { role: 'ai', speaker: 'Aria · Orenta AI', text: "Thursday March 20th at 2:30 PM — confirmed! I'll send a reminder 24 hours before. Is 555-0142 still the best number for you?", time: '0:34' },
+  { role: 'patient', speaker: 'Emma Rodriguez', text: "Yes, that's right.", time: '0:43' },
+  { role: 'ai', speaker: 'Aria · Orenta AI', text: "You're all set, Emma! Any questions about the visit or insurance coverage?", time: '0:47' },
+  { role: 'patient', speaker: 'Emma Rodriguez', text: "No, that's everything. Thank you so much!", time: '0:55' },
+  { role: 'ai', speaker: 'Aria · Orenta AI', text: "My pleasure! We look forward to seeing you on Thursday. Have a wonderful day!", time: '0:58' },
+];
+const DEMO_DELAYS = [600, 1800, 1300, 900, 1700, 1100, 1800, 900, 1300, 1100, 1400];
+
+// --- Demo Page ---
+const DemoPage = ({ onBack, onSignupClick }) => {
+  const [visibleCount, setVisibleCount] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  const bottomRef = useRef(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setPlaying(true), 800);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!playing) return;
+    if (visibleCount >= DEMO_TRANSCRIPT.length) {
+      setPlaying(false);
+      setCompleted(true);
+      return;
+    }
+    const delay = DEMO_DELAYS[visibleCount] !== undefined ? DEMO_DELAYS[visibleCount] : 1200;
+    const timer = setTimeout(() => setVisibleCount(v => v + 1), delay);
+    return () => clearTimeout(timer);
+  }, [playing, visibleCount]);
+
+  useEffect(() => {
+    if (bottomRef.current && (visibleCount > 0 || completed)) {
+      bottomRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [visibleCount, completed]);
+
+  const handleReplay = () => {
+    setVisibleCount(0);
+    setCompleted(false);
+    setPlaying(false);
+    setTimeout(() => setPlaying(true), 400);
+  };
+
+  const nextIsAI = playing && visibleCount < DEMO_TRANSCRIPT.length && DEMO_TRANSCRIPT[visibleCount].role === 'ai';
+
+  return (
+    <div className="demo-page">
+      <FloatingOrbs />
+      <div className="demo-page__inner">
+        <button className="login-back" onClick={onBack}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16 }}>
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          Back to site
+        </button>
+
+        <div className="demo-header">
+          <div className="section-badge">Live Demo</div>
+          <h1 className="demo-header__title">Hear Orenta in action</h1>
+          <p className="demo-header__sub">Watch our AI receptionist handle a real patient call — from hello to confirmed appointment.</p>
+        </div>
+
+        <div className="demo-call-card">
+          <div className="demo-call-card__info">
+            <div className="demo-call-meta">
+              <div className="call-meta-item">
+                <span className="call-meta-label">Patient</span>
+                <span className="call-meta-value">Emma Rodriguez</span>
+              </div>
+              <div className="call-meta-item">
+                <span className="call-meta-label">Duration</span>
+                <span className="call-meta-value">1:02</span>
+              </div>
+              <div className="call-meta-item">
+                <span className="call-meta-label">Date</span>
+                <span className="call-meta-value">Mar 15, 2026 · 3:47 PM</span>
+              </div>
+            </div>
+            <div className={`demo-status-badge ${completed ? 'demo-status-badge--success' : 'demo-status-badge--live'}`}>
+              {completed ? (
+                <><CheckIcon /><span>Appointment Booked</span></>
+              ) : (
+                <><span className="live-dot" /><span>Live</span></>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="demo-transcript">
+          {DEMO_TRANSCRIPT.slice(0, visibleCount).map((msg, i) => (
+            <div key={i} className={`transcript-msg transcript-msg--${msg.role}`}>
+              <div className={`transcript-msg__avatar transcript-msg__avatar--${msg.role}`}>
+                {msg.role === 'ai' ? <ToothIcon /> : 'ER'}
+              </div>
+              <div className="transcript-msg__body">
+                <div className="transcript-msg__meta">
+                  <span className="transcript-msg__speaker">{msg.speaker}</span>
+                  <span className="transcript-msg__time">{msg.time}</span>
+                </div>
+                <div className="transcript-msg__bubble">{msg.text}</div>
+              </div>
+            </div>
+          ))}
+
+          {nextIsAI && (
+            <div className="transcript-typing">
+              <div className="transcript-msg__avatar transcript-msg__avatar--ai"><ToothIcon /></div>
+              <div className="typing-dots"><span /><span /><span /></div>
+            </div>
+          )}
+
+          {completed && (
+            <div className="demo-outcome-card">
+              <div className="demo-outcome-card__header">
+                <CheckIcon /><span>Appointment Confirmed</span>
+              </div>
+              <div className="demo-outcome-card__details">
+                <div className="outcome-detail"><CalendarIcon /><span>Thursday, March 20 · 2:30 PM</span></div>
+                <div className="outcome-detail"><MessageIcon /><span>SMS confirmation sent to Emma</span></div>
+                <div className="outcome-detail"><ChartIcon /><span>Calendar updated automatically</span></div>
+              </div>
+            </div>
+          )}
+
+          <div ref={bottomRef} />
+        </div>
+
+        <div className="demo-actions">
+          <button className="btn btn--ghost" onClick={handleReplay}>
+            <PlayIcon /> Replay
+          </button>
+          <button className="btn btn--primary btn--lg" onClick={onSignupClick}>
+            Book your free demo <ArrowIcon />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // --- Navbar ---
-const Navbar = ({ onLoginClick }) => {
+const Navbar = ({ onLoginClick, onDemoClick }) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -364,13 +514,14 @@ const Navbar = ({ onLoginClick }) => {
       <div className="navbar__inner">
         <a href="#top" className="navbar__logo">
           <div className="navbar__logo-icon"><ToothIcon /></div>
-          <span>Oralis</span>
+          <span>Orenta</span>
         </a>
         <div className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
           <a href="#features" onClick={() => setMenuOpen(false)}>Features</a>
           <a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it Works</a>
           <a href="#testimonials" onClick={() => setMenuOpen(false)}>Reviews</a>
           <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
+          <button className="navbar__demo-link" onClick={() => { setMenuOpen(false); onDemoClick && onDemoClick(); }}>Live Demo</button>
         </div>
         <div className="navbar__actions">
           <button className="btn btn--ghost" onClick={onLoginClick}>Sign in</button>
@@ -391,6 +542,9 @@ export default function App() {
 
   if (page === 'login') {
     return <LoginPage onBack={() => setPage('home')} />;
+  }
+  if (page === 'demo') {
+    return <DemoPage onBack={() => setPage('home')} onSignupClick={() => setPage('login')} />;
   }
 
   const features = [
@@ -436,7 +590,7 @@ export default function App() {
     {
       number: '01',
       title: 'Patient Calls Your Practice',
-      description: 'A patient dials your existing number. Oralis answers instantly — no hold music, no voicemail.',
+      description: 'A patient dials your existing number. Orenta answers instantly — no hold music, no voicemail.',
     },
     {
       number: '02',
@@ -455,7 +609,7 @@ export default function App() {
       name: 'Dr. Michelle Park',
       role: 'Owner, Park Family Dentistry',
       avatar: 'linear-gradient(135deg, #667eea, #764ba2)',
-      text: "We used to miss 20+ calls a week after hours. Since Oralis, our new patient bookings are up 40% and my front desk team can finally focus on patients in the chair.",
+      text: "We used to miss 20+ calls a week after hours. Since Orenta, our new patient bookings are up 40% and my front desk team can finally focus on patients in the chair.",
       rating: 5,
     },
     {
@@ -469,7 +623,7 @@ export default function App() {
       name: 'Dr. James Okafor',
       role: 'Periodontist, Okafor Dental Group',
       avatar: 'linear-gradient(135deg, #f093fb, #f5576c)',
-      text: "Running three locations, staffing a full-time receptionist at each was unsustainable. Oralis cut our front desk costs in half while improving our patient experience.",
+      text: "Running three locations, staffing a full-time receptionist at each was unsustainable. Orenta cut our front desk costs in half while improving our patient experience.",
       rating: 5,
     },
   ];
@@ -527,7 +681,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <Navbar onLoginClick={() => setPage('login')} />
+      <Navbar onLoginClick={() => setPage('login')} onDemoClick={() => setPage('demo')} />
 
       {/* ── HERO ── */}
       <section className="hero">
@@ -542,7 +696,7 @@ export default function App() {
             <span className="hero__headline-gradient">always available</span>
           </h1>
           <p className="hero__subheadline">
-            Oralis's AI voice receptionist answers every patient call 24/7,
+            Orenta's AI voice receptionist answers every patient call 24/7,
             books appointments, handles FAQs, and syncs with your calendar —
             so your team can focus on care, not calls.
           </p>
@@ -556,9 +710,9 @@ export default function App() {
               {callActive ? 'AI is answering...' : 'Hear it in action'}
               <Waveform active={callActive} />
             </button>
-            <button className="btn btn--hero-demo">
+            <button className="btn btn--hero-demo" onClick={() => setPage('demo')}>
               <span className="btn__play"><PlayIcon /></span>
-              Watch 2-min demo
+              See live transcript
             </button>
           </div>
           <p className="hero__trust">No credit card required &bull; 14-day free trial &bull; HIPAA compliant</p>
@@ -632,7 +786,7 @@ export default function App() {
             <div className="section-badge">Features</div>
             <h2 className="section-title">Everything your front desk needs</h2>
             <p className="section-subtitle">
-              From after-hours calls to same-day scheduling, Oralis handles
+              From after-hours calls to same-day scheduling, Orenta handles
               the phone so your team can focus on patients in the chair.
             </p>
           </div>
@@ -743,7 +897,7 @@ export default function App() {
             <div className="cta-card__icon"><PhoneIcon /></div>
             <h2 className="cta-card__title">Stop missing patient calls today</h2>
             <p className="cta-card__sub">
-              Every missed call is a missed appointment. Let Oralis answer for you — 24/7, starting today.
+              Every missed call is a missed appointment. Let Orenta answer for you — 24/7, starting today.
             </p>
             <div className="cta-card__actions">
               <button className="btn btn--primary btn--lg" onClick={() => setPage('login')}>
@@ -762,7 +916,7 @@ export default function App() {
             <div className="footer__brand">
               <div className="navbar__logo">
                 <div className="navbar__logo-icon"><ToothIcon /></div>
-                <span>Oralis</span>
+                <span>Orenta</span>
               </div>
               <p className="footer__tagline">AI voice receptionist built exclusively for dental practices.</p>
             </div>
@@ -789,7 +943,7 @@ export default function App() {
             </div>
           </div>
           <div className="footer__bottom">
-            <p>&copy; 2026 Oralis Inc. All rights reserved.</p>
+            <p>&copy; 2026 Orenta Inc. All rights reserved.</p>
             <p>Made with <HeartIcon /> for dental teams</p>
           </div>
         </div>
