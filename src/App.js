@@ -2,23 +2,27 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 // --- SVG Icons ---
-const MicIcon = () => (
+const ToothIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z" />
-    <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-    <line x1="12" y1="19" x2="12" y2="22" />
-    <line x1="8" y1="22" x2="16" y2="22" />
+    <path d="M12 2C8 2 5 5 5 8c0 2 .5 3.5 1 5l1 6c.2 1.5 1 2 2 2s1.5-.8 2-2l1-3 1 3c.5 1.2 1 2 2 2s1.8-.5 2-2l1-6c.5-1.5 1-3 1-5 0-3-3-6-7-6z" />
   </svg>
 );
-const HeartIcon = () => (
+const PhoneIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.27 6.27l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.03z" />
   </svg>
 );
-const BrainIcon = () => (
+const CalendarIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z" />
-    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2z" />
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+    <line x1="16" y1="2" x2="16" y2="6" />
+    <line x1="8" y1="2" x2="8" y2="6" />
+    <line x1="3" y1="10" x2="21" y2="10" />
+  </svg>
+);
+const ShieldIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
   </svg>
 );
 const ChartIcon = () => (
@@ -29,9 +33,9 @@ const ChartIcon = () => (
     <line x1="2" y1="20" x2="22" y2="20" />
   </svg>
 );
-const ShieldIcon = () => (
+const MessageIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
   </svg>
 );
 const StarIcon = ({ filled }) => (
@@ -53,6 +57,11 @@ const CheckIcon = () => (
 const PlayIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor">
     <polygon points="5 3 19 12 5 21 5 3" />
+  </svg>
+);
+const HeartIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
   </svg>
 );
 
@@ -168,7 +177,7 @@ const Navbar = () => {
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__inner">
         <a href="#top" className="navbar__logo">
-          <div className="navbar__logo-icon"><MicIcon /></div>
+          <div className="navbar__logo-icon"><ToothIcon /></div>
           <span>VocaHealth</span>
         </a>
         <div className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
@@ -179,7 +188,7 @@ const Navbar = () => {
         </div>
         <div className="navbar__actions">
           <button className="btn btn--ghost">Sign in</button>
-          <button className="btn btn--primary">Get Started</button>
+          <button className="btn btn--primary">Book a Demo</button>
         </div>
         <button className="navbar__hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
           <span /><span /><span />
@@ -191,102 +200,135 @@ const Navbar = () => {
 
 // --- Main App ---
 export default function App() {
-  const [micActive, setMicActive] = useState(false);
+  const [callActive, setCallActive] = useState(false);
 
   const features = [
     {
-      icon: <MicIcon />,
-      title: 'Voice Analysis',
-      description: 'Advanced AI listens to vocal patterns and detects subtle health markers with clinical accuracy.',
+      icon: <PhoneIcon />,
+      title: '24/7 Call Answering',
+      description: 'Never miss a patient call again. Our AI receptionist picks up every call instantly — nights, weekends, and holidays.',
       gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     },
     {
-      icon: <BrainIcon />,
-      title: 'AI Diagnostics',
-      description: 'Machine learning models trained on millions of data points surface personalized health insights.',
+      icon: <CalendarIcon />,
+      title: 'Smart Appointment Booking',
+      description: 'Automatically schedule, confirm, and reschedule appointments by syncing directly with your practice management software.',
       gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
     },
     {
-      icon: <HeartIcon />,
-      title: 'Wellness Tracking',
-      description: 'Monitor cardiovascular, respiratory, and mental health trends over time from your voice.',
+      icon: <MessageIcon />,
+      title: 'Patient FAQ Handling',
+      description: 'Answer questions about procedures, insurance acceptance, office hours, and costs — without tying up your front desk.',
       gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
     },
     {
       icon: <ChartIcon />,
-      title: 'Health Dashboard',
-      description: 'Beautiful, clear dashboards give you an at-a-glance overview of your health journey.',
+      title: 'Practice Analytics',
+      description: 'Track call volumes, booking rates, missed calls, and patient satisfaction from a single intuitive dashboard.',
       gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
     },
     {
       icon: <ShieldIcon />,
-      title: 'Privacy First',
-      description: 'End-to-end encryption and zero-knowledge architecture keep your health data yours alone.',
+      title: 'HIPAA Compliant',
+      description: 'End-to-end encrypted calls and storage. Full HIPAA compliance built in from day one — no extra configuration needed.',
       gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
     },
     {
-      icon: <HeartIcon />,
-      title: 'Doctor Connect',
-      description: 'Share reports directly with your care team and receive real-time feedback from physicians.',
+      icon: <ToothIcon />,
+      title: 'Dental-Specific AI',
+      description: 'Trained on dental terminology, procedures, and workflows. Understands crowns, cleanings, ortho consults, and more.',
       gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
     },
   ];
 
   const steps = [
-    { number: '01', title: 'Speak Freely', description: 'Open the app and speak for 30 seconds. No scripts, no pressure — just talk naturally.' },
-    { number: '02', title: 'AI Analyzes', description: 'Our models extract 200+ biomarkers from pitch, rhythm, and resonance patterns in real time.' },
-    { number: '03', title: 'Get Insights', description: 'Receive a comprehensive health report with actionable recommendations within seconds.' },
+    {
+      number: '01',
+      title: 'Patient Calls Your Practice',
+      description: 'A patient dials your existing number. VocaHealth answers instantly — no hold music, no voicemail.',
+    },
+    {
+      number: '02',
+      title: 'AI Handles the Request',
+      description: 'The AI understands natural speech, books the appointment, answers questions, or routes urgent calls to your team.',
+    },
+    {
+      number: '03',
+      title: 'Confirmation Sent Instantly',
+      description: 'The patient gets an SMS or email confirmation. Your calendar is updated in real time. Zero manual work.',
+    },
   ];
 
   const testimonials = [
     {
-      name: 'Dr. Sarah Chen',
-      role: 'Cardiologist, Stanford Health',
+      name: 'Dr. Michelle Park',
+      role: 'Owner, Park Family Dentistry',
       avatar: 'linear-gradient(135deg, #667eea, #764ba2)',
-      text: 'VocaHealth flagged a potential arrhythmia in one of my patients days before traditional diagnostics. The voice biomarker analysis is genuinely remarkable.',
+      text: "We used to miss 20+ calls a week after hours. Since VocaHealth, our new patient bookings are up 40% and my front desk team can finally focus on patients in the chair.",
       rating: 5,
     },
     {
-      name: 'Marcus Williams',
-      role: 'Marathon Runner & Wellness Coach',
+      name: 'Sandra Torres',
+      role: 'Office Manager, Bright Smile Dental',
       avatar: 'linear-gradient(135deg, #43e97b, #38f9d7)',
-      text: "I use it every morning as part of my health routine. It's like having a doctor in my pocket. The respiratory insights have transformed my training.",
+      text: "The AI handles insurance questions better than I expected. Patients say they can't even tell it's not a real person. Setup took less than a day.",
       rating: 5,
     },
     {
-      name: 'Priya Nair',
-      role: 'Patient, Chronic Fatigue Syndrome',
+      name: 'Dr. James Okafor',
+      role: 'Periodontist, Okafor Dental Group',
       avatar: 'linear-gradient(135deg, #f093fb, #f5576c)',
-      text: 'Finally a tool that takes my symptoms seriously. VocaHealth detected stress biomarkers that correlated perfectly with my flare-ups. Life-changing.',
+      text: "Running three locations, staffing a full-time receptionist at each was unsustainable. VocaHealth cut our front desk costs in half while improving our patient experience.",
       rating: 5,
     },
   ];
 
   const pricingPlans = [
     {
-      name: 'Free',
-      price: '0',
-      period: 'forever',
+      name: 'Starter',
+      price: '199',
+      period: 'per month',
       color: '#6b7280',
-      features: ['3 voice scans/month', 'Basic health report', 'Trend tracking (30 days)', 'Mobile app access'],
-      cta: 'Get Started',
+      features: [
+        '1 practice location',
+        'Up to 300 calls/month',
+        'Appointment booking',
+        'Basic FAQ handling',
+        'SMS confirmations',
+        'Email support',
+      ],
+      cta: 'Start Free Trial',
       featured: false,
     },
     {
-      name: 'Pro',
-      price: '19',
+      name: 'Growth',
+      price: '399',
       period: 'per month',
       color: '#00C9A7',
-      features: ['Unlimited voice scans', 'Full AI health report', 'Trend tracking (1 year)', 'Doctor report sharing', 'Priority support', 'Early feature access'],
-      cta: 'Start Free Trial',
+      features: [
+        'Up to 3 locations',
+        'Unlimited calls',
+        'Full FAQ & insurance Q&A',
+        'PMS calendar sync',
+        'Analytics dashboard',
+        'Priority phone support',
+      ],
+      cta: 'Book a Demo',
       featured: true,
     },
     {
-      name: 'Clinical',
-      price: '79',
-      period: 'per month',
+      name: 'Enterprise',
+      price: 'Custom',
+      period: 'multi-location groups',
       color: '#4A9EFF',
-      features: ['Everything in Pro', 'Multi-patient management', 'EHR integration', 'Clinical-grade exports', 'Dedicated account manager', 'Custom biomarker models'],
+      features: [
+        'Unlimited locations',
+        'Custom AI voice & persona',
+        'EHR / PMS integration',
+        'Dedicated success manager',
+        'SLA guarantee',
+        'White-label options',
+      ],
       cta: 'Contact Sales',
       featured: false,
     },
@@ -302,80 +344,71 @@ export default function App() {
         <div className="hero__content">
           <div className="hero__badge">
             <span className="hero__badge-dot" />
-            Backed by clinical research &amp; 200K+ users
+            Trusted by 500+ dental practices across North America
           </div>
           <h1 className="hero__headline">
-            Your voice reveals<br />
-            <span className="hero__headline-gradient">your health</span>
+            Your front desk,<br />
+            <span className="hero__headline-gradient">always available</span>
           </h1>
           <p className="hero__subheadline">
-            Speak for 30 seconds. Our AI analyzes 200+ vocal biomarkers to give you
-            a personalized health snapshot — no wearables, no blood draws, no hassle.
+            VocaHealth's AI voice receptionist answers every patient call 24/7,
+            books appointments, handles FAQs, and syncs with your calendar —
+            so your team can focus on care, not calls.
           </p>
           <div className="hero__actions">
             <button
-              className={`btn btn--hero-mic ${micActive ? 'btn--hero-mic-active' : ''}`}
-              onClick={() => setMicActive(v => !v)}
-              aria-pressed={micActive}
+              className={`btn btn--hero-mic ${callActive ? 'btn--hero-mic-active' : ''}`}
+              onClick={() => setCallActive(v => !v)}
+              aria-pressed={callActive}
             >
-              <MicIcon />
-              {micActive ? 'Listening...' : 'Try it now — speak freely'}
-              <Waveform active={micActive} />
+              <PhoneIcon />
+              {callActive ? 'AI is answering...' : 'Hear it in action'}
+              <Waveform active={callActive} />
             </button>
             <button className="btn btn--hero-demo">
               <span className="btn__play"><PlayIcon /></span>
-              Watch demo
+              Watch 2-min demo
             </button>
           </div>
-          <p className="hero__trust">No credit card required &bull; Free forever plan &bull; HIPAA compliant</p>
+          <p className="hero__trust">No credit card required &bull; 14-day free trial &bull; HIPAA compliant</p>
         </div>
         <div className="hero__visual">
           <div className="phone-mockup">
             <div className="phone-mockup__screen">
               <div className="phone-mockup__header">
                 <div className="phone-mockup__dot" />
-                <span>Health Scan</span>
+                <span>Incoming Call</span>
               </div>
-              <div className="phone-mockup__score">
-                <div className="score-ring">
-                  <svg viewBox="0 0 120 120">
-                    <circle cx="60" cy="60" r="52" className="score-ring__bg" />
-                    <circle cx="60" cy="60" r="52" className="score-ring__fill" strokeDasharray="326" strokeDashoffset="49" />
-                  </svg>
-                  <div className="score-ring__label">
-                    <span className="score-ring__value">87</span>
-                    <span className="score-ring__sub">Health Score</span>
-                  </div>
+              <div className="phone-mockup__call">
+                <div className="call-avatar">
+                  <PhoneIcon />
+                </div>
+                <div className="call-name">Sarah Johnson</div>
+                <div className="call-status">Booking a cleaning...</div>
+              </div>
+              <div className="phone-mockup__chat">
+                <div className="chat-bubble chat-bubble--ai">
+                  "Hi! Thanks for calling Sunrise Dental. I can help you book an appointment. What day works best for you?"
+                </div>
+                <div className="chat-bubble chat-bubble--patient">
+                  "Tuesday afternoon if possible."
+                </div>
+                <div className="chat-bubble chat-bubble--ai">
+                  "Perfect — I have Tuesday at 2:30 PM available. Shall I confirm that for you?"
                 </div>
               </div>
-              <div className="phone-mockup__metrics">
-                {[
-                  { label: 'Respiratory', value: 92, color: '#00C9A7' },
-                  { label: 'Stress Level', value: 31, color: '#4A9EFF' },
-                  { label: 'Vocal Vitality', value: 88, color: '#a78bfa' },
-                ].map(m => (
-                  <div key={m.label} className="metric">
-                    <div className="metric__top">
-                      <span>{m.label}</span>
-                      <span style={{ color: m.color }}>{m.value}</span>
-                    </div>
-                    <div className="metric__bar">
-                      <div className="metric__fill" style={{ width: `${m.value}%`, background: m.color }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="phone-mockup__waveform">
-                <Waveform active={true} />
+              <div className="phone-mockup__booking">
+                <span className="booking-badge"><CheckIcon /> Appointment confirmed</span>
+                <span className="booking-time">Tue, Mar 18 &bull; 2:30 PM</span>
               </div>
             </div>
           </div>
           <div className="hero__floating-cards">
             <div className="floating-card floating-card--1">
-              <HeartIcon />
+              <CalendarIcon />
               <div>
-                <div className="floating-card__value">72 BPM</div>
-                <div className="floating-card__label">Heart rate normal</div>
+                <div className="floating-card__value">+40%</div>
+                <div className="floating-card__label">More bookings</div>
               </div>
             </div>
             <div className="floating-card floating-card--2">
@@ -393,10 +426,10 @@ export default function App() {
       <section className="stats-section">
         <div className="container">
           <div className="stats-grid">
-            <StatCounter end={200000} suffix="+" label="Active users" />
-            <StatCounter end={98} suffix="%" label="Accuracy rate" />
-            <StatCounter end={200} suffix="+" label="Health biomarkers" />
-            <StatCounter end={50} suffix="+" label="Partner clinics" />
+            <StatCounter end={500} suffix="+" label="Dental practices" />
+            <StatCounter end={98} suffix="%" label="Call answer rate" />
+            <StatCounter end={24} suffix="/7" label="Always available" />
+            <StatCounter end={40} suffix="%" label="More bookings avg." />
           </div>
         </div>
       </section>
@@ -406,10 +439,10 @@ export default function App() {
         <div className="container">
           <div className="section-header">
             <div className="section-badge">Features</div>
-            <h2 className="section-title">Everything your health deserves</h2>
+            <h2 className="section-title">Everything your front desk needs</h2>
             <p className="section-subtitle">
-              From real-time analysis to long-term trend tracking, VocaHealth gives you
-              the full picture of your wellbeing.
+              From after-hours calls to same-day scheduling, VocaHealth handles
+              the phone so your team can focus on patients in the chair.
             </p>
           </div>
           <div className="features-grid">
@@ -425,9 +458,10 @@ export default function App() {
         <div className="container">
           <div className="section-header">
             <div className="section-badge">How it works</div>
-            <h2 className="section-title">Health insights in three steps</h2>
+            <h2 className="section-title">Up and running in one day</h2>
             <p className="section-subtitle">
-              No equipment. No appointments. Just your voice and 30 seconds of your time.
+              No new phone numbers. No hardware. Just connect to your existing line
+              and your AI receptionist is live.
             </p>
           </div>
           <div className="steps-grid">
@@ -437,7 +471,7 @@ export default function App() {
           </div>
           <div className="how-section__cta">
             <button className="btn btn--primary btn--lg">
-              Start your free scan <ArrowIcon />
+              Book a free demo <ArrowIcon />
             </button>
           </div>
         </div>
@@ -449,9 +483,9 @@ export default function App() {
         <div className="container">
           <div className="section-header">
             <div className="section-badge">Reviews</div>
-            <h2 className="section-title">Trusted by patients &amp; clinicians</h2>
+            <h2 className="section-title">Loved by dental teams everywhere</h2>
             <p className="section-subtitle">
-              Join 200,000+ people who've made VocaHealth part of their wellness routine.
+              Join 500+ practices that stopped missing patient calls and started growing.
             </p>
           </div>
           <div className="testimonials-grid">
@@ -469,7 +503,7 @@ export default function App() {
             <div className="section-badge">Pricing</div>
             <h2 className="section-title">Simple, transparent pricing</h2>
             <p className="section-subtitle">
-              Start free. Upgrade when you're ready. Cancel anytime.
+              One flat monthly fee. No per-call charges. Cancel anytime.
             </p>
           </div>
           <div className="pricing-grid">
@@ -479,8 +513,14 @@ export default function App() {
                 <div className="pricing-card__header">
                   <div className="pricing-card__name" style={{ color: plan.color }}>{plan.name}</div>
                   <div className="pricing-card__price">
-                    <span className="pricing-card__currency">$</span>
-                    <span className="pricing-card__amount">{plan.price}</span>
+                    {plan.price === 'Custom' ? (
+                      <span className="pricing-card__amount pricing-card__amount--custom">Custom</span>
+                    ) : (
+                      <>
+                        <span className="pricing-card__currency">$</span>
+                        <span className="pricing-card__amount">{plan.price}</span>
+                      </>
+                    )}
                   </div>
                   <div className="pricing-card__period">{plan.period}</div>
                 </div>
@@ -509,16 +549,16 @@ export default function App() {
         <FloatingOrbs />
         <div className="container">
           <div className="cta-card">
-            <div className="cta-card__icon"><MicIcon /></div>
-            <h2 className="cta-card__title">Start listening to your body today</h2>
+            <div className="cta-card__icon"><PhoneIcon /></div>
+            <h2 className="cta-card__title">Stop missing patient calls today</h2>
             <p className="cta-card__sub">
-              Your first scan is free. No credit card. No commitment. Just clarity.
+              Every missed call is a missed appointment. Let VocaHealth answer for you — 24/7, starting today.
             </p>
             <div className="cta-card__actions">
               <button className="btn btn--primary btn--lg">
-                Get your free health scan <ArrowIcon />
+                Book your free demo <ArrowIcon />
               </button>
-              <button className="btn btn--ghost-light">Learn more</button>
+              <button className="btn btn--ghost-light">See pricing</button>
             </div>
           </div>
         </div>
@@ -530,24 +570,24 @@ export default function App() {
           <div className="footer__grid">
             <div className="footer__brand">
               <div className="navbar__logo">
-                <div className="navbar__logo-icon"><MicIcon /></div>
+                <div className="navbar__logo-icon"><ToothIcon /></div>
                 <span>VocaHealth</span>
               </div>
-              <p className="footer__tagline">Voice-powered health insights for a better, longer life.</p>
+              <p className="footer__tagline">AI voice receptionist built exclusively for dental practices.</p>
             </div>
             <div className="footer__links">
               <h4>Product</h4>
               <a href="#features">Features</a>
               <a href="#pricing">Pricing</a>
               <a href="#how-it-works">How it works</a>
-              <button className="footer__link-btn">API</button>
+              <button className="footer__link-btn">Integrations</button>
             </div>
             <div className="footer__links">
               <h4>Company</h4>
               <button className="footer__link-btn">About</button>
               <button className="footer__link-btn">Blog</button>
               <button className="footer__link-btn">Careers</button>
-              <button className="footer__link-btn">Press</button>
+              <button className="footer__link-btn">Contact</button>
             </div>
             <div className="footer__links">
               <h4>Legal</h4>
@@ -559,7 +599,7 @@ export default function App() {
           </div>
           <div className="footer__bottom">
             <p>&copy; 2026 VocaHealth Inc. All rights reserved.</p>
-            <p>Made with <HeartIcon /> for better health</p>
+            <p>Made with <HeartIcon /> for dental teams</p>
           </div>
         </div>
       </footer>

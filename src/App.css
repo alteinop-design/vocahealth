@@ -415,8 +415,76 @@ svg { width: 1em; height: 1em; display: block; }
 .metric__top { display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
 .metric__bar { height: 4px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
 .metric__fill { height: 100%; border-radius: 2px; transition: width 1s ease; }
-.phone-mockup__waveform { display: flex; justify-content: center; margin-top: 8px; }
-.phone-mockup__waveform .waveform__bar { background: var(--teal); opacity: 1; }
+/* Call UI */
+.phone-mockup__call {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.call-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--blue));
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  color: #fff;
+  box-shadow: 0 0 0 6px rgba(0,201,167,0.15);
+}
+.call-name { font-size: 15px; font-weight: 700; color: #fff; }
+.call-status { font-size: 11px; color: var(--teal); font-weight: 600; }
+
+/* Chat bubbles */
+.phone-mockup__chat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.chat-bubble {
+  font-size: 11px;
+  line-height: 1.5;
+  padding: 8px 12px;
+  border-radius: 12px;
+  max-width: 90%;
+}
+.chat-bubble--ai {
+  background: rgba(0,201,167,0.12);
+  border: 1px solid rgba(0,201,167,0.2);
+  color: var(--text);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.chat-bubble--patient {
+  background: rgba(255,255,255,0.08);
+  color: var(--text-muted);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+/* Booking confirmation */
+.phone-mockup__booking {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px;
+  background: rgba(0,201,167,0.08);
+  border: 1px solid rgba(0,201,167,0.25);
+  border-radius: 10px;
+}
+.booking-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--teal);
+}
+.booking-badge svg { width: 12px; height: 12px; }
+.booking-time { font-size: 10px; color: var(--text-muted); }
 
 /* Floating Cards */
 .hero__floating-cards { position: absolute; inset: 0; pointer-events: none; }
@@ -720,6 +788,7 @@ svg { width: 1em; height: 1em; display: block; }
 .pricing-card__price { display: flex; align-items: flex-end; gap: 2px; line-height: 1; margin-bottom: 4px; }
 .pricing-card__currency { font-size: 24px; font-weight: 700; color: #fff; padding-bottom: 4px; }
 .pricing-card__amount { font-size: 60px; font-weight: 900; color: #fff; letter-spacing: -2px; }
+.pricing-card__amount--custom { font-size: 36px; letter-spacing: -1px; padding-bottom: 8px; }
 .pricing-card__period { font-size: 13px; color: var(--text-muted); font-weight: 500; }
 .pricing-card__features {
   list-style: none;
