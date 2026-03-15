@@ -811,14 +811,22 @@ svg { width: 1em; height: 1em; display: block; }
 .footer__brand .navbar__logo { margin-bottom: 16px; }
 .footer__tagline { font-size: 14px; color: var(--text-muted); line-height: 1.75; max-width: 240px; }
 .footer__links h4 { font-size: 13px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
-.footer__links a {
+.footer__links a,
+.footer__link-btn {
   display: block;
   font-size: 14px;
   color: var(--text-muted);
   margin-bottom: 12px;
   transition: color var(--transition);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
 }
-.footer__links a:hover { color: #fff; }
+.footer__links a:hover,
+.footer__link-btn:hover { color: #fff; }
 .footer__bottom {
   display: flex;
   align-items: center;

@@ -167,7 +167,7 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__inner">
-        <a href="#" className="navbar__logo">
+        <a href="#top" className="navbar__logo">
           <div className="navbar__logo-icon"><MicIcon /></div>
           <span>VocaHealth</span>
         </a>
@@ -540,21 +540,21 @@ export default function App() {
               <a href="#features">Features</a>
               <a href="#pricing">Pricing</a>
               <a href="#how-it-works">How it works</a>
-              <a href="#">API</a>
+              <button className="footer__link-btn">API</button>
             </div>
             <div className="footer__links">
               <h4>Company</h4>
-              <a href="#">About</a>
-              <a href="#">Blog</a>
-              <a href="#">Careers</a>
-              <a href="#">Press</a>
+              <button className="footer__link-btn">About</button>
+              <button className="footer__link-btn">Blog</button>
+              <button className="footer__link-btn">Careers</button>
+              <button className="footer__link-btn">Press</button>
             </div>
             <div className="footer__links">
               <h4>Legal</h4>
-              <a href="#">Privacy Policy</a>
-              <a href="#">Terms of Service</a>
-              <a href="#">HIPAA Compliance</a>
-              <a href="#">Cookie Policy</a>
+              <button className="footer__link-btn">Privacy Policy</button>
+              <button className="footer__link-btn">Terms of Service</button>
+              <button className="footer__link-btn">HIPAA Compliance</button>
+              <button className="footer__link-btn">Cookie Policy</button>
             </div>
           </div>
           <div className="footer__bottom">
