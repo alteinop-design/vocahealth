@@ -1,10 +1,15 @@
 {
   "files": {
-    "main.js": "/vocahealth/static/js/main.3dbf6595.js",
+    "main.css": "/vocahealth/static/css/main.82064a63.css",
+    "main.js": "/vocahealth/static/js/main.edef0abf.js",
+    "static/js/453.8c88d9cb.chunk.js": "/vocahealth/static/js/453.8c88d9cb.chunk.js",
     "index.html": "/vocahealth/index.html",
-    "main.3dbf6595.js.map": "/vocahealth/static/js/main.3dbf6595.js.map"
+    "main.82064a63.css.map": "/vocahealth/static/css/main.82064a63.css.map",
+    "main.edef0abf.js.map": "/vocahealth/static/js/main.edef0abf.js.map",
+    "453.8c88d9cb.chunk.js.map": "/vocahealth/static/js/453.8c88d9cb.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.3dbf6595.js"
+    "static/css/main.82064a63.css",
+    "static/js/main.edef0abf.js"
   ]
 }
